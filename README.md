@@ -44,7 +44,7 @@ A simple Todo App which lets you manage your todos with the status "ACTIVE", "CO
            * It hides the complete todos.
            * The value of the button changes from "Hide Complete Todos" to "Show Complete Todos".
       - After this, clicking on "Show Complete Todos" will display all the complete todos again.
-      - If the complete todos list is empty and you click the Hide button, then message is displayed: "No items to hide".
+      - If the complete todos list is empty and you click the Hide button,then message is displayed: "No items to hide".
       
   ### 4. Deleted Todos
       - This section displays all the deleted todos.
