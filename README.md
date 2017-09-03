@@ -1,4 +1,3 @@
-M
 # Assignment - My Todo App
 
 A simple Todo App which lets you manage your todos with the status "ACTIVE", "COMPLETE" and "DELETED".
