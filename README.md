@@ -10,7 +10,7 @@ A simple Todo App which lets you manage your todos with the status "ACTIVE", "CO
  3. Complete Todos
  4. Deleted Todos 
  
-### The Node API server built has the following API's -  
+### The Node API server has the following API's -  
 
  - GET /api/todos
  - POST /api/todos
@@ -44,7 +44,8 @@ A simple Todo App which lets you manage your todos with the status "ACTIVE", "CO
            * It hides the complete todos.
            * The value of the button changes from "Hide Complete Todos" to "Show Complete Todos".
       - After this, clicking on "Show Complete Todos" will display all the complete todos again.
-      - If the complete todos list is empty and you click the Hide button,then message is displayed: "No items to hide".
+      - If the complete todos list is empty and you click the Hide button,then message "No items to hide" 
+        is displayed.
       
   ### 4. Deleted Todos
       - This section displays all the deleted todos.
@@ -52,7 +53,8 @@ A simple Todo App which lets you manage your todos with the status "ACTIVE", "CO
            * It hides the deleted todos.
            * The value of the button changes from "Hide Deleted Todos" to "Show Deleted Todos".
       - After this, clicking on "Show Deleted Todos" will display all the deleted todos again
-      - If the deleted todos list is empty and you click the Hide button, then message is displayed: "No items to hide".
+      - If the deleted todos list is empty and you click the Hide button, then message "No items to hide" 
+        is displayed.
       
  ## Screenshots of the App
  Screenshots of this app are attached inside "My Todo App" folder for reference. 
