@@ -84,6 +84,7 @@ app.post("/api/todos", function(req, res) {
 });
 
 
+// PUT request
 // 4. To change an object's title and status (modifying it)
 app.put("/api/todos/:id", function(req, res) {
     var mod_id = req.params.id;

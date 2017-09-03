@@ -1,0 +1,259 @@
+console.log("Is it working?");
+const RESPONSE_DONE = 4;
+const STATUS_OK = 200;
+const ACTIVE_TODOS_LIST_ID = "active_todos_list_div";
+const COMPLETE_TODOS_LIST_ID = "complete_todos_list_div";
+const DELETED_TODOS_LIST_ID = "deleted_todos_list_div";
+const NEW_TODO_INPUT_ID = "new_todo_input";
+
+// If you want to run a function everytime the page loads, then use window.onload or document.onload
+// Homework - Subtle differences between : window.onload and document.onload
+// window.onload - more widely supported
+//window.onload = getTodosAJAX();
+
+// Paramters which we are passing are:   (see index.hmtl)
+// id: "todos_list_div"
+// parent = div
+function addTodoElements(id, todos_data_json)
+{
+    var todos = JSON.parse(todos_data_json);
+    var active_parent = document.getElementById(id);  // for active
+    var complete_parent = document.getElementById(COMPLETE_TODOS_LIST_ID);
+    var deleted_parent = document.getElementById(DELETED_TODOS_LIST_ID);
+    active_parent.innerHTML = "";
+    complete_parent.innerHTML = "";
+    deleted_parent.innerHTML = "";
+
+    //if(parent)
+    //{
+    // Right now, we have it in the type :
+    // { id : {todo: object}, id: {todo: object}....}
+
+    // Suppose, todos = { 1: {title: ...., status: ....},
+    //                    2: .........,
+    //                    4: .......... and so on}
+    // So, todos contains all these objects
+
+    //Object.keys will return [1,2,4,....]
+
+
+    Object.keys(todos).forEach(
+        function(key)
+        {
+            var todo_element = createTodoElement(key, todos[key]);
+
+            if(todos[key].status == "ACTIVE")
+            {
+                active_parent.appendChild(todo_element);
+            }
+
+            else if(todos[key].status == "COMPLETE")
+            {
+                complete_parent.appendChild(todo_element);
+            }
+
+            else if(todos[key].status == "DELETED")
+            {
+                deleted_parent.appendChild(todo_element);
+            }
+
+        }
+    )
+    // }
+
+}
+
+
+//Our todo object looks like : {title: a task, status: ACTIVE}
+function createTodoElement(id, todo_object)
+{
+    var todo_element = document.createElement("div");
+    todo_element.innerText = todo_object.title;
+    todo_element.setAttribute("data-id", id);
+    todo_element.setAttribute("class", "todoStatus" + todo_object.status);
+
+    if(todo_object.status == "ACTIVE" || todo_object.status == "COMPLETE")
+    {
+        //var a = todo_object.status+" "+id;
+        //id = id+" "+todo_object.status;
+        //console.log(id);
+        var newCheckbox = document.createElement("input");
+        newCheckbox.type = "checkbox";
+        //newCheckbox.id = id;
+        console.log("Check status is: "+ todo_object.status);
+        //  var s = todo_object.status;
+        //console.log(s);
+
+        //newCheckbox.setAttribute("onclick","completeTodoAJAX("+todo_object.status,id+")");
+        newCheckbox.addEventListener("click",function() {
+            completeTodoAJAX(todo_object.status,id);
+        });
+        todo_element.insertBefore(newCheckbox, todo_element.firstChild);
+        //newCheckbox.setAttribute("onclick", "completeTodoAJAX(s, "+id+")");   // implement this function
+
+
+        /* var complete_button = document.createElement("button");
+        complete_button.innerText = "Mark as complete";
+        complete_button.setAttribute("onclick", "completeTodoAJAX("+id+")");
+        complete_button.setAttribute("class", "breadthHorizontal");
+        todo_element.appendChild(complete_button);     */
+    }
+
+    if(todo_object.status != "DELETED")
+    {
+        var newButton = document.createElement("button");
+        newButton.innerText = "x";
+        newButton.setAttribute("class", "btn btn-danger btn-xs");
+        newButton.setAttribute("onclick", "deleteTodoAJAX("+id+")");   // to be implemented
+        // newButton.setAttribute("class", "breadthHorizontal");
+        todo_element.appendChild(newButton);
+    }
+
+    return todo_element;
+}
+
+
+
+function getTodosAJAX() {
+
+    // AJAX - xml http request object
+    //make requests to the server
+    //1. without reloading the webpage
+    //2. happens asynchronously
+
+    // this object lets you make request to server AJAX type
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/todos", true);  // true : means to do this asynchronously
+                                          // GET request from the server for all the todos
+
+    xhr.onreadystatechange = function() {
+        //Write the code that  needs to be executed after the response
+
+        if(xhr.readyState == RESPONSE_DONE)     // Has response been received ?
+        {
+            if(xhr.status == STATUS_OK)         // Is Response okay (ie, Status code == 200) ??
+            {
+                console.log(xhr.responseText);
+                addTodoElements(ACTIVE_TODOS_LIST_ID, xhr.responseText);
+
+            }
+        }
+    }  // end of callback
+
+
+    // We are actually making the request here
+    // Above, we are only defining the request (and not making it)
+    xhr.send(data=null);
+}
+
+
+
+function addTodoAjax()
+{
+    var title = document.getElementById(NEW_TODO_INPUT_ID).value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/api/todos", true);
+
+    // this means that data in the body will be of the form "application/x-www-form-urlencoded"
+
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    // Homework: Read format of X-W-F-U-E
+    // Alse, look for ecodedURI
+    var data = "title=" + encodeURI(title);
+
+
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState == RESPONSE_DONE)
+        {
+            if(xhr.status == STATUS_OK)
+            {
+                // Server returns updated list of all todos
+                addTodoElements(ACTIVE_TODOS_LIST_ID, xhr.responseText);
+            }
+            else
+            {
+                console.log(xhr.responseText);
+            }
+        }
+    }
+
+    xhr.send(data);
+}
+
+
+function completeTodoAJAX(todo_status,id)
+{
+    // Make a AJAX request to update todo with the above id
+    // If Response is 200 : refreshTodoElements
+    /*var s = id.split(" ");
+    var todo_status = s[0];
+    var id = s[1];*/
+    console.log("Status is:" + todo_status);
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", "/api/todos/"+id, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //data = "status=COMPLETE";
+    //console.log(todo_status);
+    if(todo_status == "ACTIVE")
+    {
+        data = "status=COMPLETE";
+        console.log("in active");
+    }
+
+    else if(todo_status == "COMPLETE")
+    {
+        data = "status=ACTIVE";
+        console.log("in complete");
+    }
+
+    //console.log(todos[id].status);
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState == RESPONSE_DONE)
+        {
+            if(xhr.status == STATUS_OK)
+            {
+                // Server returns updated list of all todos
+                addTodoElements(ACTIVE_TODOS_LIST_ID, xhr.responseText);
+            }
+            else
+            {
+                console.log(xhr.responseText);
+            }
+        }
+    }
+
+    xhr.send(data);
+}
+
+
+
+function deleteTodoAJAX(id)
+{
+    // Make a AJAX request to update todo with the above id
+    // If Response is 200 : refreshTodoElements
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "/api/todos/"+id, true);
+    // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    data = "status=DELETED";
+
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState == RESPONSE_DONE)
+        {
+            if(xhr.status == STATUS_OK)
+            {
+                // Server returns updated list of all todos
+                addTodoElements(ACTIVE_TODOS_LIST_ID, xhr.responseText);
+            }
+            else
+            {
+                console.log(xhr.responseText);
+            }
+        }
+    }
+
+    xhr.send(data);
+}
+

@@ -4,14 +4,78 @@
     <meta charset="UTF-8">
     <title>Todo App</title>
     <script src="/script.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
 </head>
 
-<body>
-     <h1>My Todo List</h1>
-     <button onclick="getTodosAJAX()">Get Todos</button>
-     <div id="todos_list_div">
 
-     </div>
+<body onload="getTodosAJAX()">
+<div class="container">
+    <div class="row top-buffer">
+        <div class="col-md-6 col-md-offset-3">
+            <div id = "panel-outer" class="panel panel-default">
+                <div id="top" class = "panel-heading">
+                    <h1>My Todo List</h1>
+                </div>
+
+                <br><br>
+                <div class = "custom-padding subheading">
+                    <p>Active Todos</p>
+                </div>
+                <div id="active_todos_list_div">
+
+                </div>
+                <hr size="4">
+
+                <div class = "custom-padding subheading">
+                    <p>Add Todo</p>
+                </div>
+
+                <div id="input">
+                    <input type = "textbox" id = "new_todo_input" class = "todo_input" placeholder="Enter Todo Title" />
+                    <input type = "button" class = "btn-circle" value = "+" onclick = "addTodoAjax()" />
+                </div>
+
+                <hr size="4">
+
+                <div id="container">
+                    <div class = "custom-padding subheading">
+                        <p>Complete Todos</p>
+                    </div>
+                    <input type = "button" class = "custom-button" id = "hide-complete" value = "Hide Completed Items" onclick="hideCompletedItems()" />
+                </div>
+                <div id="complete_todos_list_div">
+
+                </div>
+                <hr size="4">
+
+                <div id="container2">
+                    <div class = "custom-padding subheading">
+                        <p>Deleted Todos</p>
+                    </div>
+                    <input type = "button" class = "custom-button" id = "hide-deleted" value = "Hide Deleted Items" onclick="hideDeletedItems()" />
+                </div>
+                <div id="deleted_todos_list_div">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 

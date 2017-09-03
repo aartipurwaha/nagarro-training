@@ -1,0 +1,156 @@
+/*
+Each rule has a Selector and a Descriptor
+ */
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background: url("abstract.png") repeat center center fixed;
+    width: 100%;
+    height: 344px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div.child {
+    flex-grow: 0.9;
+    position: relative;
+    left: 10px;
+}
+
+div.parent.todoStatusACTIVE {
+    display: flex;
+    color : blue;
+    width: auto;
+    justify-content: space-around;
+
+}
+
+div.todoStatusCOMPLETE {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    color : green;
+    text-decoration : line-through;
+}
+
+div.todoStatusDELETED {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    display: flex;
+    position: relative;
+    left:2%;
+    color : red;
+    text-decoration : line-through;
+}
+
+.top-buffer {
+    margin-top : 50px;
+}
+
+.icon-button {
+    outline: none;
+    border: 0;
+    background: transparent;
+    color: red;
+}
+
+.custom-button {
+    outline: none;
+    border: 0;
+    background: transparent;
+    color: lightseagreen;
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: bold;
+    font-family: "Comic Sans MS";
+    margin-right: 20px;
+}
+
+.check-icon {
+    background: transparent;
+}
+
+div#active_todos_list_div{
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+}
+
+div#container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+}
+
+div#container2 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+div#top {
+    text-align: center;
+    justify-content: center;
+    height: 110px;
+    font-style: italic;
+    font-weight: bold;
+    font-family: "Comic Sans MS";
+    background-color: lightcoral;
+    color: white;
+}
+
+div#panel-outer {
+    background-color: white;
+    padding-bottom: 25px;
+}
+
+.subheading {
+    color: cadetblue;
+    font-weight: bold;
+    font-family: "Comic Sans MS";
+    font-size: 20px;
+}
+
+.custom-padding {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn-circle {
+    outline: none;
+    outline-color: lightcoral;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    border-radius: 40px;
+    background-color: lightcoral;
+    position: relative;
+    right: 20px;
+}
+
+.todo_input {
+    align-content: center;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    margin-left: 20px;
+    width: 480px;
+    font-family: "Comic Sans MS";
+    font-size: 15px;
+}
+
+div#input{
+    display: flex;
+}

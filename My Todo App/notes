@@ -1,0 +1,37 @@
+What all interactions will the Todo App perform?
+
+1. get all todos
+2. add a todo
+3. complete a todo (modifying it)
+4. delete a todo
+
+Homework : See RESTful API's
+ Concept of REST guides you towards how your API's should look like
+
+1. get all todos
+   http://localhost:4000/todos/GET
+
+   todos/GET
+   //Returns a JSON object of all our todos
+
+2. delete a todo (modifying it)
+   http://localhost:4000/todos/:id DELETE
+
+3. complete a todo
+   http://localhost:4000/todos
+
+
+
+The Server has 2 parts :
+1. The part which handles views
+2. The part which handles data
+
+
+- Read about data.* custom attributes
+
+- Use of innerHTML is discouraged. Figure out better ways which are encouraged
+
+// If you want to run a function everytime the page loads, then use window.onload or document.onload
+// Homework - Subtle differences between : window.onload and document.onload
+// window.onload - more widely supported
+//window.onload = getTodosAJAX();
